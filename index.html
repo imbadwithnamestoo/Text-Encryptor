@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ROT13 Encryptor/Decryptor</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>ROT13 Encryptor/Decryptor</h1>
+
+    <label for="text">Enter Text: </label>
+    <input type="text" id="text" />
+    <br><br>
+
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="decrypt()">Decrypt</button>
+
+    <h2>Result:</h2>
+    <div id="result"></div>
+
+    <script>
+        function encrypt() {
+            const text = document.getElementById('text').value;
+            const encryptedText = rot13(text);
+            document.getElementById('result').textContent = `Encrypted Text: ${encryptedText}`;
+        }
+
+        function decrypt() {
+            const text = document.getElementById('text').value;
+            const decryptedText = rot13(text);
+            document.getElementById('result').textContent = `Decrypted Text: ${decryptedText}`;
+        }
+
+        function rot13(text) {
+            return text.replace(/[a-zA-Z]/g, (char) => {
+                let isUpperCase = char === char.toUpperCase();
+                let offset = isUpperCase ? 65 : 97;
+                return String.fromCharCode(((char.charCodeAt(0) - offset + 13) % 26) + offset);
+            });
+        }
+    </script>
+</body>
+</html>
